@@ -20,26 +20,19 @@ Lily Moreno, Cyclistic's Marketing Manager, believes that maximizing the number 
 
 <b>Business Task</b>
 
-
-
 Analyze 12 months of Cyclistic trip data to gain insights into how members and casual riders are using the Cyclistic bikes differently. Use these insights to determine why a casual rider would buy an annual membership and how to market annual memberships to casual riders.
 
 <b>Objectives</b>
 
 <ul>
-<li>What story does your data tell??</li>
-<li>How do your findings relate to your original question?</li>
-<li>Who is your audience? What is the best way to communicate with them?</li>
+<li>What story does the data tell?</li>
+<li>How do my findings relate to your original question?</li>
+<li>Who is the audience? What is the best way to communicate with them?</li>
 </ul>
 
 <b>Tools</b>
 
 MS SQL for Data Cleaning, Data Transformation, and Data Analysis. Tableau for Data Visualisation
-
-
-<b>Data Set</b>
-
-The data set is publicly available on Kaggle.
 
 <!---
 MatijaMosunic/MatijaMosunic is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
