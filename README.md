@@ -34,6 +34,11 @@ Analyze 12 months of Cyclistic trip data to gain insights into how members and c
 
 MS SQL for Data Cleaning, Data Transformation, and Data Analysis. Tableau for Data Visualisation
 
+<b>Data</b>
+
+Motivate International, Inc., provided the license to be used by students in this program. The license is located <a href="https://ride.divvybikes.com/data-license-agreement">here</a>.
+
+
 <!---
 MatijaMosunic/MatijaMosunic is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 You can click the Preview link to take a look at your changes.
