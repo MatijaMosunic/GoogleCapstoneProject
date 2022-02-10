@@ -32,7 +32,7 @@ Analyze 12 months of Cyclistic trip data to gain insights into how members and c
 
 <b>Tools</b>
 
-MS SQL for Data Cleaning, Data Transformation, and Data Analysis. Tableau for Data Visualization
+MS SQL for Data Cleaning, Data Transformation, and Data Analysis. Tableau for Data Visualization.
 
 <b>Data</b>
 
