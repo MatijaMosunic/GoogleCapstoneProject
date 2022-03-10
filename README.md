@@ -30,13 +30,22 @@ Analyze 12 months of Cyclistic trip data to gain insights into how members and c
 <li>Who is the audience? What is the best way to communicate with them?</li>
 </ul>
 
-<b>Tools</b>
-
-MS SQL for Data Cleaning, Data Transformation, and Data Analysis. Tableau for Data Visualization.
-
 <b>Data</b>
 
-Motivate International, Inc., provided the license to be used by students in this program. The license is located <a href="https://ride.divvybikes.com/data-license-agreement">here</a>.
+Motivate International, Inc., provided the license to be used by students in this program. The license is located <a href="https://ride.divvybikes.com/data-license-agreement">here</a>. The original data can be found here: <a href="https://www.kaggle.com/matijamosunic/cyclistic-data-12-months"> Kaggle </a>.
+
+<b>Tools</b>
+
+MS Excel and MS SQL 2019 for Data Cleaning.  Continued with MS SQL for Data Transformation and Data Analysis. Tableau for Data Visualization.
+
+<hr>
+
+I transferred 12 months of .csv files from Motivate International and saved them to Excel Worksheet files. I created a database in MS SQL 2019 used MS SQL's Server Import and Export Wizard to import files into tables to store in the database. 
+
+
+ 
+
+
 
 
 <!---
