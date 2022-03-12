@@ -38,7 +38,7 @@ MS Excel and MS SQL 2019 for Data Cleaning.  Continued with MS SQL for Data Tran
 
 <hr>
 
-I transferred 12 months of .csv files from Motivate International. I created a database in MS SQL 2019 used MS SQL's Server Import and Export Wizard to import flat files into tables to store in the database. 
+I transferred 12 months of .csv files from Motivate International. I created a database in MS SQL 2019 calling it Cyclistic. I used MS SQL's Server Import and Export Wizard to import flat files into tables to store in the database. 
 
 I joined 12 tables into one table with a UNION ALL statement. This left me with over five million rows. I could see missing data in many important columns while quickly looking it over.
 
@@ -54,7 +54,7 @@ Next, I cleaned the data deleting corrupt or dirty data:
 
 
 
-3) 
+3) Bike trips which were test rides, those of one minute or less duration and those of greater than 24 hours do not represent usual customers per Cyclistic. Those are deleted from the database;
 
 
 
