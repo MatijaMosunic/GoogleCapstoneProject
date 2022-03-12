@@ -6,8 +6,6 @@
 
 <H2>Cyclistic Bike-Share Analysis</H2>
 
-<a href="https://imgbb.com/"><img src="https://i.ibb.co/qrWxCh2/Cyclistic-Bike-Share.png" alt="Cyclistic-Bike-Share" border="0"></a>
-
 This analysis is an optional Capstone project from the <a href="https://www.coursera.org/professional-certificates/google-data-analytics">Google Data Analytics Professional Certificate</a> on Coursera.
 
 <b>About The Company</b><br>
