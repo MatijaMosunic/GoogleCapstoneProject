@@ -44,7 +44,7 @@ I joined 12 tables into one table with a UNION ALL statement. This left me with 
 
 
 
-Next, I cleaned the data deleting corrupt or dirty data: 
+Next, I cleaned the data by deleting corrupt or dirty data: 
 
 1) End datetimes which began before start datetimes, and start datetimes equal to end datetimes;
 
