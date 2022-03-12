@@ -45,7 +45,8 @@ I transferred 12 months of .csv files from Motivate International. I created a d
 I joined 12 tables into one table with a UNION ALL statement.
 
 
- 
+
+Next, I cleaned the data. 
 
 
 
