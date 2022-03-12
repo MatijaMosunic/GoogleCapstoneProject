@@ -40,7 +40,7 @@ MS Excel and MS SQL 2019 for Data Cleaning.  Continued with MS SQL for Data Tran
 
 I transferred 12 months of .csv files from Motivate International. I created a database in MS SQL 2019 used MS SQL's Server Import and Export Wizard to import flat files into tables to store in the database. 
 
-I joined 12 tables into one table with a UNION ALL statement. 
+I joined 12 tables into one table with a UNION ALL statement. This left me with over five million rows. I could see missing data in many important columns while quickly looking it over.
 
 
 
@@ -50,11 +50,11 @@ Next, I cleaned the data deleting corrupt or dirty data:
 
 
 
-2) Bike trips with no start station name, id and a starting latitude of less than four characters. Correct latitudes and longitudes are comprised of 2 numbers and at least four numbers following the decimal point;
+2) A bike trip with a missing start or end station, no station name, id and latitudes of less five characters or less. Correct latitudes and longitudes are comprised of 2 numbers and at least four numbers following the decimal point;
 
 
 
-3)
+3) 
 
 
 
