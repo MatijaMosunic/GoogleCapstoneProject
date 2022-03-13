@@ -50,7 +50,7 @@ Next, I cleaned the data by deleting corrupt or dirty data:
 
 
 
-2) A bike trip with a missing start or end station, no station name, id and latitudes of less five characters or less. Correct latitudes and longitudes are comprised of 2 numbers and at least four numbers following the decimal point;
+2) A bike trip with missing start or end station names, and latitudes or longitudes of less five characters or less. Correct latitudes and longitudes are comprised of 2 numbers and at least four numbers following the decimal point;
 
 
 
