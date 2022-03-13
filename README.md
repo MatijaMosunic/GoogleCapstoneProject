@@ -57,7 +57,7 @@ Next, I cleaned the data by deleting corrupt or dirty data:
 3) Bike trips which were test rides, those of one minute or less duration and those of greater than 24 hours do not represent usual customers per Cyclistic. Those are deleted from the database;
 
 
-
+4) Searched for duplicate rides. I found no duplicates.
 
 
 
