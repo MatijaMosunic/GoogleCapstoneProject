@@ -124,11 +124,7 @@ SELECT DISTINCT FORMAT(started_at, 'MMM-yy') AS ride_month_yr,
 FROM cyclistic_project
      WHERE member_casual = 'member'
      ORDER BY DATEPART(yy, started_at), DATEPART(m, started_at)
-```
-data
-![t_weekdays](https://user-images.githubusercontent.com/70773304/159269410-8d45fef0-6058-4040-a571-55e57fa464c4.png)
-
-```
+     
 SELECT DISTINCT DATENAME(WEEKDAY, started_at), 'member' AS ride_type, DATEPART(WEEKDAY, started_at),
        SUM(DATEDIFF(hh, started_at, ended_at))  OVER (PARTITION BY DATENAME(WEEKDAY, started_at)) AS total_hours,
        COUNT(*) OVER (PARTITION BY DATENAME(WEEKDAY, started_at)) AS count_rides
@@ -136,7 +132,89 @@ FROM cyclistic_project
     WHERE member_casual ='member'
     ORDER BY DATEPART(WEEKDAY, started_at) 
 ```
-data
+
+![t_weekdays](https://user-images.githubusercontent.com/70773304/159269410-8d45fef0-6058-4040-a571-55e57fa464c4.png)
+
+```
+SELECT  start_time =
+	CASE DATEPART(HH, started_at)
+	WHEN 0 THEN '12 AM'
+	WHEN 12 THEN '12 PM'
+	WHEN 13 THEN '1 PM'
+	WHEN 14 THEN '2 PM'
+	WHEN 15 THEN '3 PM'
+	WHEN 16 THEN '4 PM'
+	WHEN 17 THEN '5 PM'
+	WHEN 18 THEN '6 PM'
+	WHEN 19 THEN '7 PM'
+	WHEN 20 THEN '8 PM'
+	WHEN 21 THEN '9 PM'
+	WHEN 22 THEN '10 PM'
+	WHEN 23 THEN '11 PM'
+	ELSE '' +  CAST(DATEPART(HH, started_at) AS varchar(10))  +  ''  + ' AM'
+	END,  
+	DATEPART(HOUR,started_at) AS started_time_hr,
+	Count(*) AS ride_cnt, 
+	SUM(ride_seconds)/3600 AS time_cnt, ((SUM(ride_seconds))/Count(*)/60)  AS avg_duration, 
+	member_casual, 'member' AS qtr_txt, '1' AS date_guide, started_at_month_name, 
+```
+
+![t_heatmap](https://user-images.githubusercontent.com/70773304/159270411-2b644536-373b-4e86-8b1a-3d2db1267a57.png)
+
+```
+SELECT DISTINCT member_casual,   
+    convert(char(8),dateadd(s,   PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY DATEDIFF_BIG( ss, started_at, ended_at))  
+    OVER (PARTITION BY member_casual)    ,'1900-1-1'),8) AS MedianCont,
+ convert(char(8),dateadd(s,   AVG(DATEDIFF_BIG( ss, started_at, ended_at)) OVER (PARTITION BY member_casual)    ,'1900-1-1'),8)  AS rs_avg,
+MIN(DATEDIFF_BIG( ss, started_at, ended_at)) OVER (PARTITION BY member_casual)  AS rs_min,
+MAX(DATEDIFF_BIG( ss, started_at, ended_at)) OVER (PARTITION BY member_casual)AS rs_max,
+SUM(DATEDIFF_BIG( ss, started_at, ended_at)) OVER (PARTITION BY member_casual) AS rs_total_min,
+COUNT(*) OVER (PARTITION BY member_casual) AS count_rides
+FROM cyclistic_project
+WHERE member_casual = 'casual'
+
+UNION
+
+  SELECT DISTINCT member_casual,   
+    convert(char(8),dateadd(s,   PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY DATEDIFF_BIG( ss, started_at, ended_at))  
+    OVER (PARTITION BY member_casual)    ,'1900-1-1'),8) AS MedianCont ,
+convert(char(8),dateadd(s,   AVG(DATEDIFF_BIG( ss, started_at, ended_at)) OVER (PARTITION BY member_casual)    ,'1900-1-1'),8)  AS rs_avg,
+MIN(DATEDIFF_BIG( ss, started_at, ended_at)) OVER (PARTITION BY member_casual)  AS rs_min,
+MAX(DATEDIFF_BIG( ss, started_at, ended_at)) OVER (PARTITION BY member_casual)AS rs_max,
+SUM(DATEDIFF_BIG( ss, started_at, ended_at)) OVER (PARTITION BY member_casual) AS rs_total_min,
+COUNT(*) OVER (PARTITION BY member_casual) AS count_rides
+FROM cyclistic_project
+WHERE member_casual = 'member'
+ORDER BY   member_casual
+```
+![t_median](https://user-images.githubusercontent.com/70773304/159273090-c3675846-5c3d-4475-b943-1dff18c7af1d.png)
+
+```
+SELECT TOP 20 SUM(temp.no_rides) AS Number_of_rides, temp.station_name, temp.lat_station, temp.long_station, temp.user_type FROM
+
+  (SELECT DISTINCT COUNT(a.start_station_name) AS no_rides, a.start_station_name AS station_name,  a.member_casual AS user_type, b.Latitude AS lat_station, b.Longitude AS long_station
+  FROM dbo.cyclistic_project a LEFT JOIN dbo.cyclistic_lat_long b 
+	ON a.start_station_name = b.full_address
+  WHERE member_casual = 'casual'
+  GROUP BY a.start_station_name, a.member_casual, b.Latitude, b.Longitude
+ 
+  UNION ALL
+
+  SELECT DISTINCT COUNT(a.end_station_name) AS no_rides, a.end_station_name AS station_name,  a.member_casual AS user_type, b.Latitude AS lat_station, b.Longitude AS long_station
+  FROM dbo.cyclistic_project a LEFT JOIN dbo.cyclistic_lat_long b
+  ON a.end_station_name = b.full_address
+  WHERE member_casual = 'casual'
+ 
+  GROUP BY  a.end_station_name, a.member_casual, b.Latitude, b.Longitude  
+  ) AS  temp
+
+
+  GROUP BY 
+	temp.station_name, temp.lat_station, temp.long_station, temp.user_type
+ORDER BY 
+	SUM(temp.no_rides) DESC
+```
+![t_toptwenty_map](https://user-images.githubusercontent.com/70773304/159273638-1ead56a3-3145-474b-b20a-2612c859eee3.png)
 
 <!---
 MatijaMosunic/MatijaMosunic is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
