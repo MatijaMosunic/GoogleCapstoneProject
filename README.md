@@ -77,7 +77,7 @@ Next, I cleaned the data by deleting corrupt or dirty data:
 
 1) End datetimes which began before start datetimes, and start datetimes equal to end datetimes;
 
-2) A bike trip with missing start or end station names, and latitudes or longitudes of less five characters or less. Correct latitudes and longitudes are comprised of 2 numbers and at least four numbers following the decimal point;
+2) A bike trip with missing start or end station names, and incorrectly formatted latitudes. Correct latitude are comprised of 2 numbers and at least four numbers following the decimal point. Correct longtitudes start with a negative and have two numbers and at least four number following the decimal;
 
 3) Bike trips which were test rides, those of one minute or less duration and those of greater than 24 hours do not represent usual customers per Cyclistic. Those are deleted from the database;
 
@@ -88,12 +88,55 @@ DELETE FROM cyclistic_project
   WHERE started_at > ended_at;
 DELETE FROM cyclistic_project
   WHERE start_station_name IS NULL 
-    AND start_station_id IS NULL;
+    AND start_station_id IS NULL
+    AND len(start_lat) IN (1, 2, 3, 4, 5) 
+     OR len(start_lng) IN (1, 2, 3, 4, 5, 6)
+     OR start_lat IS NULL
+     OR start_lng IS NULL;
 DELETE FROM cyclistic_project
   WHERE end_station_name IS NULL
-     AND end_station_ID IS NULL;
+     AND end_station_ID IS NULL
+      AND len(end_lat) IN (1, 2, 3, 4, 5) 
+      OR len(end_lng) IN (1, 2, 3, 4, 5, 6)
+      OR end_lat IS NULL
+      OR end_lng IS NULL;
+DELETE FROM cyclistic_project
+   WHERE start_station_name IS LIKE ('%test%') 
+      OR end_station_name IS LIKE ('%test%');
+DELETE T
+FROM
+(
+SELECT *
+, DupRank = ROW_NUMBER() OVER (
+              PARTITION BY ride_id
+              ORDER BY (SELECT NULL)
+            )
+FROM cyclistic_project
+) AS T
+WHERE DupRank > 1; 
+```
+The next step is analyzing our data to create the Tableau charts.
+```
+SELECT DISTINCT FORMAT(started_at, 'MMM-yy') AS ride_month_yr,  
+    'member' AS ride_type, DATEPART(yy, started_at), DATEPART(m, started_at),
+     SUM(DATEDIFF(hh, started_at, ended_at))  OVER (PARTITION BY FORMAT(started_at, 'MMM-yy')) AS total_hours,
+      COUNT(*) OVER (PARTITION BY FORMAT(started_at, 'MMM-yy')) AS count_rides
+FROM cyclistic_project
+     WHERE member_casual = 'member'
+     ORDER BY DATEPART(yy, started_at), DATEPART(m, started_at)
+```
+data
+![t_weekdays](https://user-images.githubusercontent.com/70773304/159269410-8d45fef0-6058-4040-a571-55e57fa464c4.png)
 
-
+```
+SELECT DISTINCT DATENAME(WEEKDAY, started_at), 'member' AS ride_type, DATEPART(WEEKDAY, started_at),
+       SUM(DATEDIFF(hh, started_at, ended_at))  OVER (PARTITION BY DATENAME(WEEKDAY, started_at)) AS total_hours,
+       COUNT(*) OVER (PARTITION BY DATENAME(WEEKDAY, started_at)) AS count_rides
+FROM cyclistic_project
+    WHERE member_casual ='member'
+    ORDER BY DATEPART(WEEKDAY, started_at) 
+```
+data
 
 <!---
 MatijaMosunic/MatijaMosunic is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
